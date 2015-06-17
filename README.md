@@ -131,6 +131,5 @@ As for the whitelist and blacklist.  These are just simple properties files usin
 ## TODO
 
 * Refactor OWASPValidationFilter to handle all content-types that have a JAX-B binding.
-* Create a factory design pattern service to handle conversion of parameter map to ParameterObject.
 * Think about a way to get the ParameterObject to the servlet insted of the parameter map.
 * Think about JAX-WS and JAX-RS web services and how we might filter these...the validation might not be able to be done at the filter since we have no idea what object an XML/JSON blob maps to.

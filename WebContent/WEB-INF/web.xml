@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
+  <display-name>owasp-filter</display-name>
+  <servlet>
+    <display-name>Test Servlet</display-name>
+    <servlet-name>TestServlet</servlet-name>
+    <servlet-class>com.trinary.test.servlet.TestServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TestServlet</servlet-name>
+    <url-pattern>/test/*</url-pattern>
+  </servlet-mapping>
+  <filter>
+    <filter-name>owasp-filter</filter-name>
+    <filter-class>com.trinary.validation.OWASPFilter</filter-class>
+    <init-param>
+      <param-name>owasp.parameterObjectType</param-name>
+      <param-value>com.trinary.validation.TestParameterObject</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>owasp-filter</filter-name>
+    <servlet-name>TestServlet</servlet-name>
+  </filter-mapping>
+</web-app>

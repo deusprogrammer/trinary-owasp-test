@@ -26,7 +26,7 @@ The following is an example web.xml
 	  </servlet-mapping>
 	  <filter>
 		<filter-name>owasp-filter</filter-name>
-		<filter-class>com.trinary.validation.OWASPFilter</filter-class>
+		<filter-class>com.trinary.validation.OWASPValidationFilter</filter-class>
 		<init-param>
 			<param-name>owasp.parameterObjectType</param-name>
 			<param-value>com.trinary.validation.TestParameterObject</param-value>

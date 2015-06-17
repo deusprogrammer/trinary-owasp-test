@@ -1,7 +1,5 @@
 package com.trinary.validation;
 
-import java.util.Map;
-
 public class TestParameterObject extends ParameterObject {
 	@Parameter(name="guid")
 	@OWASPValidation(storedPattern="guid", type=OWASPValidationType.WHITELIST)
@@ -14,10 +12,6 @@ public class TestParameterObject extends ParameterObject {
 	@Parameter(name="referringUrl")
 	@OWASPValidation(storedPattern="url", type=OWASPValidationType.WHITELIST)
 	protected String referringUrl;
-
-	public TestParameterObject(Map<String, String[]> params) throws OWASPValidationException {
-		super(params);
-	}
 
 	/**
 	 * @return the guid

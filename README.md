@@ -110,6 +110,11 @@ The @Parameter annotations are not required, but if the parameter map key is dif
 
 The @OWASPValidation annotation takes at minimum a storedPattern name or a one off regex pattern.  The type will automatically be set to WHITELIST if you don't put anything else.  The BLACKLIST type will currently only do a negative match (meaning that matching the regex pattern will cause a failed validation).  However in the near future I will allow the BLACKLIST to take a list of stored regex patterns as well as a name for a stored list of stored patterns.
 
+As for the whitelist and blacklist.  These are just simple properties files using key value pairs.  Here is an example whitelist:
+
+	guid=^[a-zA-Z0-9]{8}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{12}$
+	url=^((((https?|ftps?|gopher|telnet|nntp)\://)|(mailto\:|news\:))(%[0-9A-Fa-f]{2}|[-()_.\!~*';/?\:@&\=+$,A-Za-z0-9])+)([).\!';/?\:,][[\:blank\:]])?$
+
 ## Versions
 
 ### 0.1a

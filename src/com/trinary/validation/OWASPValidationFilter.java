@@ -52,5 +52,7 @@ public class OWASPValidationFilter implements Filter {
 		} catch (OWASPValidationException e) {
 			throw new ServletException(e);
 		}
+		
+		chain.doFilter(req, res);
 	}
 }

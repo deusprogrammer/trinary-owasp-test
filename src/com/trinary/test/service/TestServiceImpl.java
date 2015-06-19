@@ -6,7 +6,7 @@ import javax.ejb.Stateless;
 import com.trinary.test.dao.UserDAO;
 import com.trinary.test.entity.User;
 
-@Stateless
+@Stateless(name="testService")
 public class TestServiceImpl implements TestService {
 	@EJB UserDAO userDAO;
 

@@ -1,5 +1,6 @@
 package com.trinary.validation;
 
+import java.util.List;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
@@ -44,6 +45,7 @@ public class OWASPValidatorV1 implements OWASPValidator {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void validate(Object object) throws OWASPValidationException {
 		for (Field field : object.getClass().getDeclaredFields()) {
 			OWASPValidation validation = field.getAnnotation(OWASPValidation.class);
@@ -53,10 +55,37 @@ public class OWASPValidatorV1 implements OWASPValidator {
 			}
 			
 			try {
-				if (!validation.storedPattern().isEmpty()) {
-					validateStoredPattern((String)field.get(object), validation.storedPattern(), validation.type());
-				} else if (!validation.pattern().isEmpty()) {
-					validatePattern((String)field.get(object), validation.pattern(), validation.type());
+				field.setAccessible(true);
+				if (List.class.isAssignableFrom(field.getType())) {
+					List<String> list = (List<String>)field.get(object);
+					for (String element : list) {
+						if (!validation.storedPattern().isEmpty()) {
+							validateStoredPattern(element, validation.storedPattern(), validation.type());
+						} else if (!validation.pattern().isEmpty()) {
+							validatePattern(element, validation.pattern(), validation.type());
+						} else {
+							continue;
+						}
+					}
+				} else if (Map.class.isAssignableFrom(field.getType())) {
+					Map<String, String> map = (Map<String,String>)field.get(object);
+					for (String element : map.values()) {
+						if (!validation.storedPattern().isEmpty()) {
+							validateStoredPattern(element, validation.storedPattern(), validation.type());
+						} else if (!validation.pattern().isEmpty()) {
+							validatePattern(element, validation.pattern(), validation.type());
+						} else {
+							continue;
+						}
+					}
+				} else if (String.class.isAssignableFrom(field.getType())) {
+					if (!validation.storedPattern().isEmpty()) {
+						validateStoredPattern((String)field.get(object), validation.storedPattern(), validation.type());
+					} else if (!validation.pattern().isEmpty()) {
+						validatePattern((String)field.get(object), validation.pattern(), validation.type());
+					} else {
+						continue;
+					}
 				} else {
 					continue;
 				}
@@ -64,6 +93,8 @@ public class OWASPValidatorV1 implements OWASPValidator {
 				throw new OWASPValidationException("Unable to get field value to validate.", e);
 			} catch (IllegalAccessException e) {
 				throw new OWASPValidationException("Unable to get field value to validate.", e);
+			} catch (OWASPValidationException e) {
+				throw new OWASPValidationException("Validation failed on field \"" + field.getName() + "\"", e);
 			}
 		}
 	}
@@ -89,7 +120,7 @@ public class OWASPValidatorV1 implements OWASPValidator {
 	}
 	
 	protected void validateBlackList(String value, Pattern pattern) throws OWASPValidationException {
-		if (value == null) {
+		if (value == null || value.isEmpty()) {
 			return;
 		}
 
@@ -100,7 +131,7 @@ public class OWASPValidatorV1 implements OWASPValidator {
 	}
 	
 	protected void validateWhiteList(String value, Pattern pattern) throws OWASPValidationException {
-		if (value == null) {
+		if (value == null || value.isEmpty()) {
 			return;
 		}
 		

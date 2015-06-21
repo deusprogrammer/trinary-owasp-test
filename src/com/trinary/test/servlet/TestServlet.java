@@ -2,18 +2,18 @@ package com.trinary.test.servlet;
 
 import java.io.IOException;
 
-import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.trinary.security.owasp.factory.ProxyFactory;
 import com.trinary.test.service.TestService;
+import com.trinary.test.service.TestServiceImpl;
 
 public class TestServlet extends HttpServlet {
 	private static final long serialVersionUID = -1778574173539761350L;
 	
-	@EJB
 	protected TestService testService;
 
 	/* (non-Javadoc)
@@ -23,6 +23,16 @@ public class TestServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		System.out.println("PATH: " + req.getPathInfo());
+		
+		try {
+			testService = new ProxyFactory().createProxy(TestService.class, TestServiceImpl.class);
+		} catch (IllegalArgumentException e) {
+			throw new ServletException(e);
+		} catch (InstantiationException e) {
+			throw new ServletException(e);
+		} catch (IllegalAccessException e) {
+			throw new ServletException(e);
+		}
 		
 		if (req.getPathInfo().equals("/create")) {
 			testService.create();

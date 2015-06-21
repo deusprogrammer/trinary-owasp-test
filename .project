@@ -3,6 +3,7 @@
 	<name>owasp-filter</name>
 	<comment></comment>
 	<projects>
+		<project>trinary-owasp</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

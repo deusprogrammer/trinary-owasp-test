@@ -7,7 +7,7 @@ import com.trinary.security.owasp.annotations.OWASPValidation;
 import com.trinary.security.owasp.annotations.OWASPValidationType;
 import com.trinary.security.owasp.annotations.Parameter;
 
-public class TestParameterObject {
+public class TestParameterValidationObject {
 	@Parameter(name="guid")
 	@OWASPValidation(storedPattern="guid", type=OWASPValidationType.WHITELIST)
 	protected String guid;

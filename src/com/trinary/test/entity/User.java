@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.trinary.security.owasp.annotations.OWASPValidation;
+
 @Entity
 @Table(name="user")
 public class User {
@@ -14,6 +16,7 @@ public class User {
 	long id;
 	
 	@Column
+	@OWASPValidation(pattern="[a-zA-Z]{1,32}")
 	String username;
 	
 	@Column

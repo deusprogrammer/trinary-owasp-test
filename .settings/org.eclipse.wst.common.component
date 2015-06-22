@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-    <wb-module deploy-name="owasp-filter">
+    <wb-module deploy-name="trinary-owasp-test">
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
         <dependent-module archiveName="trinary-owasp.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/trinary-owasp/trinary-owasp">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <property name="java-output-path" value="/owasp-filter/build/classes"/>
-        <property name="context-root" value="owasp-filter"/>
+        <property name="java-output-path" value="/trinary-owasp-test/build/classes"/>
+        <property name="context-root" value="trinary-owasp-test"/>
     </wb-module>
 </project-modules>

@@ -1,19 +1,21 @@
 package com.trinary.test.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.trinary.security.owasp.factory.ProxyFactory;
+import com.trinary.test.entity.User;
 import com.trinary.test.service.TestService;
-import com.trinary.test.service.TestServiceImpl;
 
 public class TestServlet extends HttpServlet {
 	private static final long serialVersionUID = -1778574173539761350L;
 	
+	@Inject
 	protected TestService testService;
 
 	/* (non-Javadoc)
@@ -23,7 +25,9 @@ public class TestServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		System.out.println("PATH: " + req.getPathInfo());
+		User user = null;
 		
+		/*
 		try {
 			testService = new ProxyFactory().createProxy(TestService.class, TestServiceImpl.class);
 		} catch (IllegalArgumentException e) {
@@ -33,14 +37,18 @@ public class TestServlet extends HttpServlet {
 		} catch (IllegalAccessException e) {
 			throw new ServletException(e);
 		}
-		
-		if (req.getPathInfo().equals("/create")) {
-			testService.create();
-		} else {
-			testService.get(req.getPathInfo().substring(1));
-		}
+		*/
 		
 		resp.setContentType("text/html");
-		resp.getWriter().append("<html><h1>TESTY TEST!</h1></html>");
+		PrintWriter out = resp.getWriter();
+		if (req.getPathInfo().equals("/create")) {
+			testService.create();
+			out.append("<html><h1>Created user.</h1></html>");
+		} else {
+			user = testService.get(req.getPathInfo().substring(1));
+			out.append(testService.someComplexFunction(user));
+		}
+		
+		return;
 	}
 }

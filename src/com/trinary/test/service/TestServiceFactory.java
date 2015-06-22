@@ -1,16 +1,12 @@
 package com.trinary.test.service;
 
-import java.lang.reflect.Proxy;
+import javax.ejb.Local;
 
-import com.trinary.security.owasp.proxy.OWASPMethodValidatorProxy;
+@Local
+public interface TestServiceFactory {
 
-public class TestServiceFactory {
-	Class<?>[] interfaces = {TestService.class};
-	
-	public TestService createESignService() throws IllegalArgumentException, InstantiationException, IllegalAccessException {
-		return (TestService)Proxy.newProxyInstance(
-				this.getClass().getClassLoader(), 
-				interfaces,
-				new OWASPMethodValidatorProxy<TestService>(TestServiceImpl.class));
-	}
+	public abstract TestService createESignService()
+			throws IllegalArgumentException, InstantiationException,
+			IllegalAccessException;
+
 }

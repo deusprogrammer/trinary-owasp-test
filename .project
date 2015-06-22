@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>owasp-filter</name>
+	<name>trinary-owasp-test</name>
 	<comment></comment>
 	<projects>
 		<project>trinary-owasp</project>

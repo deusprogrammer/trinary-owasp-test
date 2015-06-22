@@ -1,22 +1,19 @@
 package com.trinary.test.service;
 
 import javax.ejb.EJB;
-import javax.ejb.Stateless;
 
 import com.trinary.test.dao.UserDAO;
 import com.trinary.test.entity.User;
 
-@Stateless(name="testService")
 public class TestServiceImpl implements TestService {
-	@EJB UserDAO userDAO;
+	@EJB UserDAO userDAO = (UserDAO)BeanUtility.getBean("userDAO");
 
 	@Override
-	public void get(String username) {
-		User user = userDAO.getByUsername(username);
-		
-		if (user != null) {
-			System.out.println("USER: " + user);
-		}
+	public User get(String username) {
+		User user = new User();
+		user.setUsername("deusprogrammer");
+		user.setPassword("pa$$word");
+		return user;
 	}
 
 	@Override
@@ -25,5 +22,11 @@ public class TestServiceImpl implements TestService {
 		user.setUsername("deusprogrammer");
 		user.setPassword("pa$$word");
 		userDAO.save(user);
+	}
+
+	@Override
+	public String someComplexFunction(User user) {
+		System.out.println("I RAN");
+		return "<html><h1>Hello " + user.getUsername() + "</h1></html>";
 	}
 }

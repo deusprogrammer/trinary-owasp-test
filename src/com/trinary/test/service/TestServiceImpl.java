@@ -1,12 +1,19 @@
 package com.trinary.test.service;
 
-import javax.ejb.EJB;
+import javax.inject.Inject;
 
+import com.trinary.security.owasp.util.BeanUtility;
 import com.trinary.test.dao.UserDAO;
 import com.trinary.test.entity.User;
 
 public class TestServiceImpl implements TestService {
-	@EJB UserDAO userDAO;
+	@Inject UserDAO userDAO;
+	
+	public TestServiceImpl() {
+		if (userDAO == null) {
+			userDAO = BeanUtility.getBean(UserDAO.class, "java:module/UserDAOImpl");
+		}
+	}
 
 	@Override
 	public User get(String username) {
@@ -25,7 +32,10 @@ public class TestServiceImpl implements TestService {
 
 	@Override
 	public String someComplexFunction(User user) {
-		System.out.println("I RAN");
+		if (user == null) {
+			return "<html><h1>I don't know you...</h1></html>";
+		}
+		
 		return "<html><h1>Hello " + user.getUsername() + "</h1></html>";
 	}
 }

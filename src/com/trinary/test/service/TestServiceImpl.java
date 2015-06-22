@@ -6,13 +6,12 @@ import com.trinary.test.dao.UserDAO;
 import com.trinary.test.entity.User;
 
 public class TestServiceImpl implements TestService {
-	@EJB UserDAO userDAO = (UserDAO)BeanUtility.getBean("userDAO");
+	@EJB UserDAO userDAO;
 
 	@Override
 	public User get(String username) {
-		User user = new User();
-		user.setUsername("deusprogrammer");
-		user.setPassword("pa$$word");
+		User user = userDAO.getByUsername(username);
+		
 		return user;
 	}
 

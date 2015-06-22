@@ -27,18 +27,6 @@ public class TestServlet extends HttpServlet {
 		System.out.println("PATH: " + req.getPathInfo());
 		User user = null;
 		
-		/*
-		try {
-			testService = new ProxyFactory().createProxy(TestService.class, TestServiceImpl.class);
-		} catch (IllegalArgumentException e) {
-			throw new ServletException(e);
-		} catch (InstantiationException e) {
-			throw new ServletException(e);
-		} catch (IllegalAccessException e) {
-			throw new ServletException(e);
-		}
-		*/
-		
 		resp.setContentType("text/html");
 		PrintWriter out = resp.getWriter();
 		if (req.getPathInfo().equals("/create")) {

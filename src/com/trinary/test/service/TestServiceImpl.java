@@ -1,19 +1,14 @@
 package com.trinary.test.service;
 
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 
-import com.trinary.security.owasp.util.BeanUtility;
 import com.trinary.test.dao.UserDAO;
 import com.trinary.test.entity.User;
 
+@Stateless
 public class TestServiceImpl implements TestService {
 	@Inject UserDAO userDAO;
-	
-	public TestServiceImpl() {
-		if (userDAO == null) {
-			userDAO = BeanUtility.getBean(UserDAO.class, "java:module/UserDAOImpl");
-		}
-	}
 
 	@Override
 	public User get(String username) {

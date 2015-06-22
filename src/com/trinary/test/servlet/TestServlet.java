@@ -9,14 +9,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.trinary.security.owasp.annotations.OWASPSecuredProxy;
 import com.trinary.test.entity.User;
 import com.trinary.test.service.TestService;
 
 public class TestServlet extends HttpServlet {
 	private static final long serialVersionUID = -1778574173539761350L;
 	
-	@Inject
-	protected TestService testService;
+	@Inject @OWASPSecuredProxy TestService testService;
 
 	/* (non-Javadoc)
 	 * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)

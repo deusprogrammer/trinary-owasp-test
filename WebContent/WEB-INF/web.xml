@@ -15,7 +15,7 @@
     <filter-class>com.trinary.security.owasp.filter.OWASPValidationFilter</filter-class>
     <init-param>
       <param-name>owasp.parameterObjectType</param-name>
-      <param-value>com.trinary.validation.TestParameterObject</param-value>
+      <param-value>com.trinary.validation.TestParameterValidationObject</param-value>
     </init-param>
   </filter>
   <filter-mapping>
